@@ -1,0 +1,103 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="stylesheet.css">
+    <title>Smart Card Reader</title>
+    <h1 align="center">Smart Card Reader</h1>
+  </head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <body>
+    <div class ="container">
+      <form id="form1" runat="server">
+          <div class ="container">
+        Nationality<input id="nationality" type="text"> </input>
+        Date of Birth<input id="dob" type="text"> </input>
+        Visa Id Number<input id="visa" type="text"> </input>
+        Sponser name<input id="sponser" type="text"> </input>
+      </div>
+        <div class ="container">
+        First Name<input id="firstName" type="text"> </input>
+        Second Name<input id="secondName" type="text"> </input>
+        Third Name<input id="thirdName" type="text"> </input>
+        Family Name<input id="familyName" type="text"> </input>
+      </div>
+        <div class ="container">
+        ID Number<input id="id" type="text"> </input>
+        Date of Issue<input id="dateOfIssue" type="text"> </input>
+        Date of Expiry<input id="dateOfExpiry" type="text"> </input>
+        Country of Birth<input id="countryOfBirth" type="text"> </input>
+        ID Version Number<input id="versionNumber" type="text"> </input>
+      </div>
+      </form>
+    </div>
+      <input id="txtServerURL" type="hidden" value="http://localhost:5050/api/operation/ReadCard" style="font-weight: bold; width: 300px;" />
+      <label id="L" for="btnReadSmartcard">Please insert a card to read</label>
+      <input type="button" height="50" id="btnReadSmartcard" value="Read Smartcard" style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 15px; font-weight: bolder;" />
+      <input style="display:none" type="button" height="50" id="TCSBaNCS" value="TCSBaNCS" style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 15px; font-weight: bolder;" />
+  </body>
+</html>
+
+<script>
+$(function () {
+    //$('#tbDetails').hide();
+    $('#btnReadSmartcard').click(function () {
+        $.support.cors = true;
+        $("#btnReadSmartcard").prop('value', 'Please wait...');
+        $('#btnReadSmartcard').prop("disabled", true);
+    $.ajax({
+        type: "POST",
+        url: $("#txtServerURL").val(),
+        dataType: "json",
+        data: JSON.stringify(
+            {
+                "OutputFormat": $("#sltOutputFormat :selected").text()
+            }),
+        success: function (data) {
+            $("#btnReadSmartcard").prop('value', 'Read Smartcard');
+            $('#btnReadSmartcard').prop("disabled", false);
+            $("#tbDetails").find("tr:gt(0)").remove();
+            $('#L').hide();
+            $('#btnReadSmartcard').hide();
+            $('#TCSBaNCS').show();
+            var jsonData = JSON.stringify(data);
+            var objData = $.parseJSON(jsonData);
+              console.log(objData)
+              $('#nationality').val($('#nationality').val() + objData.MiscellaneousTextData.Alpha2Code);
+              $('#dob').val($('#dob').val() + objData.BirthDate);
+              $('#visa').val($('#visa').val() + objData.MiscellaneousTextData.VisaNo);
+              $('#sponser').val($('#sponser').val() + objData.SponserNameEnglish);
+              $('#firstName').val($('#firstName').val() + objData.MiscellaneousTextData.FirstNameEnglish);
+              $('#secondName').val($('#secondName').val() + objData.MiscellaneousTextData.MiddleName1English);
+              $('#thirdName').val($('#thirdName').val() + objData.MiscellaneousTextData.MiddleName2English);
+              $('#familyName').val($('#familyName').val() + objData.MiscellaneousTextData.MiddleName3English);
+              $('#id').val($('#id').val() + objData.IdNumber);
+              $('#dateOfIssue').val($('#dateOfIssue').val() + objData.CardIssueDate);
+              $('#dateOfExpiry').val($('#dateOfExpiry').val() + objData.CardexpiryDate);
+              $('#countryOfBirth').val($('#countryOfBirth').val() + objData.MiscellaneousTextData.CountryOfBirth);
+              $('#versionNumber').val($('#versionNumber').val() + objData.CardVersion);
+            // $.each(objData, function (k, v) {
+            // $.each(objData, function (k, v) {
+            //     if (k == "MiscellaneousTextData" || k == "MiscellaneousBinaryData") {
+            //         var misc = "<table>";
+            //         $.each(v, function (k1, v1) {
+            //             misc += '<tr><td style="border: solid 1px lightgray;width: 20%"><b>' + k1 + '</b></td><td style="width: 80%;word-wrap: break-word; border: solid 1px lightgray">' + v1 + '</td></tr>';
+            //         });
+            //         misc += "</table>"
+            //         $('<tr><td style="border: solid 1px lightgray;width: 20%"><b>' + k + '</b></td><td style="width: 80%;word-wrap: break-word; border: solid 1px lightgray">' + misc + '</td></tr>').appendTo('#tbDetails');
+            //     }
+            //     else
+            //         $('<tr><td style="border: solid 1px lightgray;width: 20%">' + k + '</b></td><td style="width: 80%;word-wrap: break-word; border: solid 1px lightgray">' + v + '</td></tr>').appendTo('#tbDetails');
+            // });
+
+          },
+          error: function (xhr, tst, err) {
+              $("#btnReadSmartcard").prop('value', 'Read Smartcard');
+              $('#btnReadSmartcard').prop("disabled", false);
+              //alert('error :' + xhr.responseText);
+              alert("Something went wrong, Please try again later");
+          }
+      });
+    });
+
+});
+</script>
