@@ -50,6 +50,9 @@ $(function () {
         dataType: "json",
         data: JSON.stringify(
             {
+                // "SilentReading": false,
+                // "ReaderIndex": -1,
+                // "ReaderName": "",
                 "OutputFormat": $("#sltOutputFormat :selected").text()
             }),
         success: function (data) {
@@ -69,7 +72,7 @@ $(function () {
               $('#firstName').val($('#firstName').val() + objData.MiscellaneousTextData.FirstNameEnglish);
               $('#secondName').val($('#secondName').val() + objData.MiscellaneousTextData.MiddleName1English);
               $('#thirdName').val($('#thirdName').val() + objData.MiscellaneousTextData.MiddleName2English);
-              $('#familyName').val($('#familyName').val() + objData.MiscellaneousTextData.MiddleName3English);
+              $('#familyName').val($('#familyName').val() + objData.MiscellaneousTextData.LastNameEnglish);
               $('#id').val($('#id').val() + objData.IdNumber);
               $('#dateOfIssue').val($('#dateOfIssue').val() + objData.CardIssueDate);
               $('#dateOfExpiry').val($('#dateOfExpiry').val() + objData.CardexpiryDate);
@@ -93,8 +96,8 @@ $(function () {
           error: function (xhr, tst, err) {
               $("#btnReadSmartcard").prop('value', 'Read Smartcard');
               $('#btnReadSmartcard').prop("disabled", false);
-              //alert('error :' + xhr.responseText);
-              alert("Something went wrong, Please try again later");
+              alert('error :' + xhr.responseText);
+              //alert("Something went wrong, Please try again later");
           }
       });
     });
