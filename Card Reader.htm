@@ -4,40 +4,90 @@
     <link rel="stylesheet" href="stylesheet.css">
     <title>Smart Card Reader</title>
     <h1 align="center">Smart Card Reader</h1>
+    <div id="nbb">
+      <img src="NBB-LOGO-01.png" align="right" height="100" width="200"></img>
+    </div>
   </head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <body>
+    <input type="button" height="50" id="clear" value="Clear fields" style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 15px; font-weight: bolder;" />
     <div class ="container">
-      <form id="form1" runat="server">
-          <div class ="container">
-        Nationality<input id="nationality" type="text"> </input>
-        Date of Birth<input id="dob" type="text"> </input>
-        Visa Id Number<input id="visa" type="text"> </input>
-        Sponser name<input id="sponser" type="text"> </input>
-      </div>
-        <div class ="container">
-        First Name<input id="firstName" type="text"> </input>
-        Second Name<input id="secondName" type="text"> </input>
-        Third Name<input id="thirdName" type="text"> </input>
-        Family Name<input id="familyName" type="text"> </input>
-      </div>
-        <div class ="container">
-        ID Number<input id="id" type="text"> </input>
-        Date of Issue<input id="dateOfIssue" type="text"> </input>
-        Date of Expiry<input id="dateOfExpiry" type="text"> </input>
-        Country of Birth<input id="countryOfBirth" type="text"> </input>
-        ID Version Number<input id="versionNumber" type="text"> </input>
-      </div>
+      <form id="form1" runat="server" align="center">
+        <br/><br/><br/>
+        <div class="col-md-5">
+          <label for="firstName">First Name <br/><label>
+          <input id="firstName" type="text"> </input>
+        </div>
+        <div class="col-md-5">
+          <label for="secondName">Second Name <br/><label>
+          <input id="secondName" type="text"> </input>
+        </div>
+
+        <div class="col-md-5">
+          <label for="thirdName">Third Name<br/><label>
+          <input id="thirdName" type="text"> </input>
+        </div>
+        <div class="col-md-5">
+          <label for="familyName">Family Name<br/><label>
+          <input id="familyName" type="text"> </input>
+        </div>
+        <div class="col-md-5">
+          <label for="id">CPR<br/><label>
+          <input id="id" type="text"> </input>
+        </div>
+        <div class="col-md-5">
+          <label for="dateOfIssue">Date of Issue<br/><label>
+          <input id="dateOfIssue" type="text"> </input>
+        </div>
+        <div class="col-md-5">
+          <label for="dateOfExpiry">Date of Expiry<br/><label>
+          <input id="dateOfExpiry" type="text"> </input>
+        </div>
+        <div class="col-md-5">
+          <label for="dob">Date of Birth<br/><label>
+          <input id="dob" type="text"> </input>
+        </div>
+        <div class="col-md-5">
+          <label for="countryOfBirth">  Country of Birth <br/><label>
+          <input id="countryOfBirth" type="text"> </input>
+        </div>
+        <div class="col-md-5">
+          <label for="nationality">Nationality<br/><label>
+          <input id="nationality" type="text"> </input>
+        </div>
+        <div class="col-md-5">
+          <label for="versionNumber">  CPR Version Number <br/> <label>
+          <input id="versionNumber" type="text"> </input>
+        </div>
+        <div class="col-md-5">
+          <label for="visa">Visa Id Number<br/><label>
+          <input id="visa" type="text"> </input>
+        </div>
+        <div class="col-md-10" >
+          <label for="sponser">Sponser name <br/><label>
+          <input id="sponser" type="text"> </input>
+        </div>
       </form>
     </div>
       <input id="txtServerURL" type="hidden" value="http://localhost:5050/api/operation/ReadCard" style="font-weight: bold; width: 300px;" />
-      <label id="L" for="btnReadSmartcard">Please insert a card to read</label>
+    <div id="Read" align="center">
+      <label id="L" for="btnReadSmartcard">Please insert a card to read</label> <br/>
       <input type="button" height="50" id="btnReadSmartcard" value="Read Smartcard" style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 15px; font-weight: bolder;" />
-      <input style="display:none" type="button" height="50" id="TCSBaNCS" value="TCSBaNCS" style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 15px; font-weight: bolder;" />
+    </div>
+    <input style="display:none" type="button" height="50" id="TCSBaNCS" value="TCSBaNCS" style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 15px; font-weight: bolder;" />
   </body>
 </html>
 
 <script>
+$(function () {
+    //$('#tbDetails').hide();
+    $('#clear').click(function () {
+      $('#form1')[0].reset();
+    });
+});
+
 $(function () {
     //$('#tbDetails').hide();
     $('#btnReadSmartcard').click(function () {
